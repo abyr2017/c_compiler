@@ -1,0 +1,28 @@
+p -> program id ;
+     Dcl
+     Inst_composée .
+
+Dcl -> Dcl var Liste_id : Type | &
+
+Liste_id -> id|Liste_id,id
+
+Type -> integer|char
+Inst_composée -> begin
+		 Inst
+		 end
+
+Inst -> Liste_inst |&
+
+Liste_inst -> I|Liste_inst;I
+
+I-> Id:=Exp_simple|if Expthen I else I|
+    while Exp do I
+    read(id)|readln(id)|write(id)|writeln(id)
+
+Exp-> Exp_simple|Exp_simple oprel Exp_simple
+
+Exp_simple -> Terme| Exp_simple opad Terme
+
+Terme -> Facteur |Terme opmul Facteur
+
+Facteur -> Id | nb | (xp_simple) | Facteur 
