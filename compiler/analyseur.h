@@ -18,9 +18,9 @@
 #define opmul 18
 
 FILE *file ;
-char * tamp ; /* pointeur sur chaine qui va contenir le plus long long léxéme trouver à consommer par l'analyseur syntasique */
+char * tamp ; /* pointeur sur chaine qui va contenir le plus long long lÃ©xÃ©me trouver Ã  consommer par l'analyseur syntasique */
 char *commentair ; /*pointeur sur chaine qui contient le commentaire */
-char*c = getc(file); /*commencer à lire le fichier un catactére à la fois */
+char*c = getc(file); /*commencer Ã  lire le fichier un catactÃ©re Ã  la fois */
 
 /**char detecter_les_commentaires (char*c)
 {   *c = getc(file);
@@ -39,13 +39,11 @@ char*c = getc(file); /*commencer à lire le fichier un catactére à la fois */
 }**/
 
 
-while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
-{
-   *tam += *c;
+*tam += *c;
 
-    if ( (*c >= 'a')&& (*c<='z') || (*c>='A')&&(*c<='Z')) // le lexéme commence avec une lettre
+    if ( (*c >= 'a')&& (*c<='z') || (*c>='A')&&(*c<='Z')) // le lexÃ©me commence avec une lettre
     {   /**------------------------program or litteral starting with p--------------------------------------*/
-        if(c=='p') // le lexéme peut être program
+        if(c=='p') // le lexÃ©me peut Ãªtre program
         {
 
         /*else{
@@ -53,18 +51,20 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                 *tamp=getc(file);
             return *tamp
         }*/
-        }else {
+        }
+//not p
 
-         /**----------------------------var or litteral starting with v-----------------------------------------------------*/
-            if(c=='v') // le lexéme peut être var
+	/**----------------------------var or litteral starting with v-----------------------------------------------------*/
+
+            if(c=='v') // le lexÃ©me peut Ãªtre var
             {
              *c=getc(file);
              *tamp+=*c; //contient 2 lettres
              if(c=='a'){
-                *c=getc(file); //lire la 3éme letre
+                *c=getc(file); //lire la 3Ã©me letre
                 *tamp+=*c; // contient 3 lettres
                 if(c=='r'){
-                    *c=getc(file); //lire la 4éme lettre
+                    *c=getc(file); //lire la 4Ã©me lettre
                     if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                         return 2 ; ///var
                     }else{ ///litteral commence avec var
@@ -86,23 +86,25 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                 return *tamp ;///litteral
              }
 
-            }else{// c!= p && c!=v
+            
+// !p && !v 
 
-         /**----------------------------begin or litteral starting with b-----------------------------------------------------*/
+	/**----------------------------begin or litteral starting with b-----------------------------------------------------*/
+
                 if(c=='b'){
-                    *c=getc(file); //lire la 2éme lettre
+                    *c=getc(file); //lire la 2Ã©me lettre
                     *tamp+=c; // contien 2 lettres
                     if (*c=='e'){
-                        *c=getc(file); //lire la 3éme lettre
+                        *c=getc(file); //lire la 3Ã©me lettre
                         *tamp+=c; // contien 3 lettres
                         if(*c=='g'){
-                            *c=getc(file);//lire la 4éme lettre
+                            *c=getc(file);//lire la 4Ã©me lettre
                             *tamp+=c;//contient 4 lettres
                             if(*c=='i'){
-                                *c=getc(file);//lire la 5éme lettre
+                                *c=getc(file);//lire la 5Ã©me lettre
                                 *tamp+=c;//contient 5lettres
                                 if (*c=='n'){
-                                    *c=getc(file); //lire la 6éme lettre
+                                    *c=getc(file); //lire la 6Ã©me lettre
                                     if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                             return 3 ; ///begin
                                     }else{ ///litteral commence avec begin
@@ -132,16 +134,20 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                         return *tamp ;///litteral
                     }
 
-                }else{ //c!= p && c!= v && c!=b
-                    /**----------------------------------------end or else or litteral starting with e--------------------------------------*/
-                    if(*c=='e'){ //le lexéme peut être end
-                            *c=getc(file); //lire la 2éme lettre
+                
+
+//not in :p,v,b
+
+	/**----------------------------------------end or else or litteral starting with e--------------------------------------*/
+
+                    if(*c=='e'){ //le lexÃ©me peut Ãªtre end
+                            *c=getc(file); //lire la 2Ã©me lettre
                             *tamp+=*c; //contient 2 lettres
                             if(*c=='n'){
-                                *c=getc(file); //lire la 3éme lettre
+                                *c=getc(file); //lire la 3Ã©me lettre
                                 *tamp+=*c; //contient 3 lettres
                                 if(*c=='d'){
-                                    *c=getc(file); //lire la 4éme lettre
+                                    *c=getc(file); //lire la 4Ã©me lettre
                                     if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                             return 4 ; ///end
                                     }else{ ///litteral commence avec end
@@ -159,13 +165,13 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
 
                             }else{//not n
                                 if(*c=='l'){ //might be else
-                                    *c=getc(file); //lire la 3éme lettre
+                                    *c=getc(file); //lire la 3Ã©me lettre
                                     *tam+=*c;//contient 3 lettres
                                     if(*c=='s'){
-                                        *c=getc(file); //lire la 4éme lettre
+                                        *c=getc(file); //lire la 4Ã©me lettre
                                         *tam+=*c;//contient 4 lettres
                                         if(*c=='e'){
-                                            *c=getc(file); //lire la 5éme lettre
+                                            *c=getc(file); //lire la 5Ã©me lettre
                                             if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                 return 9 ; ///else
                                             }else{ ///litteral commence avec else
@@ -196,19 +202,21 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                             }
 
 
-                    }else{ //not in :p,v,b,e
-            /**----------------------------------------char or litteral starting with c--------------------------------------*/
-                            if(*c=='c'){ //le mot peut être char
-                                *c=getc(file);//lire le 2éme lettre
+                    
+////not in :p,v,b,e
+	/**----------------------------------------char or litteral starting with c--------------------------------------*/
+
+                            if(*c=='c'){ //le mot peut Ãªtre char
+                                *c=getc(file);//lire le 2Ã©me lettre
                                 *tamp+=*c;//contient 2lettres
                                 if(*c=='h'){
-                                    *c=getc(file);//lire le 3éme lettre
+                                    *c=getc(file);//lire le 3Ã©me lettre
                                     *tamp+=*c;//contient 3lettres
                                     if(*c=='a'){
-                                        *c=getc(file);//lire le 4éme lettre
+                                        *c=getc(file);//lire le 4Ã©me lettre
                                         *tamp+=*c;//contient 4lettres
                                         if(*c=='r'){
-                                            *c=getc(file); //lire la 5éme lettre
+                                            *c=getc(file); //lire la 5Ã©me lettre
                                             if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                 return 6 ; ///char
                                             }else{ ///litteral commence avec char
@@ -234,13 +242,16 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                     return *tamp ;///litteral
                                 }
 
-                            }else{ //not in : p,v,b,e,c
-		/**-----------------------------------if or integer or litteral starting with if ||ineteger-------------------------*/
+                            
+//not in : p,v,b,e,c
+		
+	/**-----------------------------------if or integer or litteral starting with if ||ineteger-------------------------*/
+
                                 if(*c=='i'){
-                                        *c=getc(file);//lire le 2éme caractére
+                                        *c=getc(file);//lire le 2Ã©me caractÃ©re
                                         *tamp+=*c;//contient 2 lettres
                                         if(*c=='f'){
-                                            *c=getc(file); //lire la 3éme lettre
+                                            *c=getc(file); //lire la 3Ã©me lettre
                                             if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                 return 7 ; ///char
                                             }else{ ///litteral commence avec if
@@ -251,22 +262,22 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
 
                                         }else{ // might be integer
                                             if(*c=='n'){
-                                                *c=getc(file);//lire le 3éme caractére
+                                                *c=getc(file);//lire le 3Ã©me caractÃ©re
                                                 *tamp+=*c;//contient 3 lettres
                                                 if(*c=='t'){
-                                                    *c=getc(file);//lire le 4éme caractére
+                                                    *c=getc(file);//lire le 4Ã©me caractÃ©re
                                                     *tamp+=*c;//contient 4 lettres
                                                     if(*c=='e'){
-                                                        *c=getc(file);//lire le 5éme caractére
+                                                        *c=getc(file);//lire le 5Ã©me caractÃ©re
                                                         *tamp+=*c;//contient 5 lettres
                                                         if(*c=='g'){
-                                                            *c=getc(file);//lire le 6éme caractére
+                                                            *c=getc(file);//lire le 6Ã©me caractÃ©re
                                                             *tamp+=*c;//contient 6 lettres
                                                             if(*c=='e'){
-                                                                *c=getc(file);//lire le 7éme caractére
+                                                                *c=getc(file);//lire le 7Ã©me caractÃ©re
                                                                 *tamp+=*c;//contient 7 lettres
                                                                 if(*c=='r'){
-                                                                    *c=getc(file); //lire la 8éme lettre
+                                                                    *c=getc(file); //lire la 8Ã©me lettre
                                                                     if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                                         return 5 ; ///integer
                                                                     }else{ ///litteral commence avec integer
@@ -310,13 +321,16 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                             }
                                         }
 
-                                }else{//not in : p,v,b,e,c,i
+                                
+//not in : p,v,b,e,c,i
+	
 	/**-----------------------------------------do or litteral starting with do -----------------------------------*/
+
                                     if(*c=='d'){
-                                        *c=getc(file);//lire la 2éme lettres
+                                        *c=getc(file);//lire la 2Ã©me lettres
                                         *tamp+=*c; //contient 2 lettres
                                         if(*c=='o'){
-                                            *c=getc(file); //lire la 8éme lettre
+                                            *c=getc(file); //lire la 8Ã©me lettre
                                             if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                 return 11 ; ///do
                                             }else{ ///litteral commence avec do
@@ -329,8 +343,11 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                                 *tamp=getc(file);
                                             return *tamp ;///litteral
                                         }
-                                    }else{//not in :p,v,b,e,c,i,d
-/**-----------------------------then or litteral starting with then -----------------------------------*/
+                                    
+//not in :p,v,b,e,c,i,d
+
+	/**-----------------------------then or litteral starting with then -----------------------------------*/
+
                                         if(*c=='t'){
                                             *c=getc(file);//lire lettre2
                                             *tamp+=*c;//contient 2 lettres
@@ -341,7 +358,7 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                                     *c=getc(file);//lire lettre 4
                                                     *tamp+=*c;//contient 4 lettres
                                                     if(*c=='n'){
-                                                        *c=getc(file); //lire la 5éme lettre
+                                                        *c=getc(file); //lire la 5Ã©me lettre
                                                         if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                             return 8 ; ///then
                                                         }else{ ///litteral commence avec then
@@ -369,7 +386,8 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                             }
 
 
-                                        }else{ //not in :p,v,b,e,c,i,d,t
+                                        
+//not in :p,v,b,e,c,i,d,t
 
 	/**--------------------------------------while[*]||write[ln][*]--------------------------*/
 
@@ -386,7 +404,7 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                                             *c=getc(file);//lire lettre 5
                                                             *tamp+=*c;//contient 5 letres
                                                             if(*c=='e'){
-                                                                *c=getc(file); //lire la 6éme lettre
+                                                                *c=getc(file); //lire la 6Ã©me lettre
                                                                 if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                                     return 10 ; ///while
                                                                 }else{ ///litteral commence avec while
@@ -428,7 +446,7 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                                                 *c=getc(file);//lire lettre 5
                                                                 *tamp+=*c; //contient 5 lettres
                                                                 if(*c=='e'){
-                                                                    *c=getc(file); //lire la 6éme lettre
+                                                                    *c=getc(file); //lire la 6Ã©me lettre
                                                                     if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                                         return 10 ; ///write
                                                                     }else{ ///litteral commence avec write
@@ -437,7 +455,7 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                                                             *c=getc(file);//lire lettre 7
                                                                             *tamp+=*c; //contient 7 lettres
                                                                             if(*c=='n'){
-                                                                                *c=getc(file); //lire la 8éme lettre
+                                                                                *c=getc(file); //lire la 8Ã©me lettre
                                                                                 if((*c== ' ')|| (*c == "\n") || (*c== "\t")){
                                                                                     return 15 ; ///writeln
                                                                                 }else{ ///litteral commence avec writeln
@@ -489,23 +507,5 @@ while ( (*c!= ' ')&& (*c!= "\n") && (*c!= "\t") && !EOF )
                                                     }
                                                 }
 
-                                            }else{ //not in :p,v,b,e,c,i,d,t,w
                                             }
-                                        }
-                                    }
-
-                                }
-
-                            }
-
-
-
-                    }
-                }
-
-        }
-   }
-} ///big while end
-
-
-
+//not in :p,v,b,e,c,i,d,t,w
